@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
+import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import MainPage from "./components/mainPage";
+
+export const AppContext = React.createContext();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [ appContext, setAppContext ] = useState({
+        user: {},
+        deliveriesToMe: {},
+        myRequest: {}
+    })
+
+    return (
+        <div className="App">
+            <AppContext.Provider value={{appContext, setAppContext}}>
+                <MainPage/>
+            </AppContext.Provider>
+        </div>
+    );
 }
 
 export default App;

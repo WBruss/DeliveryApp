@@ -1,0 +1,114 @@
+
+.pageLayout{
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+}
+
+.header{
+    height: 10vh;
+    color: azure;
+    font-size: 2rem;
+    background-color: #9b9b9b;
+}
+
+.contentLayout{
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.footer{
+    height: 10vh;
+    color: black;
+    background-color: darkgray;
+}
+
+/*
+    login page
+*/
+.loginPage{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    vertical-align: center;
+}
+
+.formHeader{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.loginForm{
+    width: 40vw;
+    height: 70vh;
+    margin: auto;
+    padding: 3rem;
+    /*background-color: rgba(213, 213, 213, 0.58);*/
+    border-radius: 2.5%;
+}
+
+/*
+    SignUp page
+*/
+.signupForm{
+    width: 40vw;
+}
+
+/*
+    homePage
+*/
+.homePage{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/*
+    Delivery Request
+*/
+.deliveryRequestHomePage{
+    width: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+.deliveryRequest{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.requestButton{
+    height: 40%;
+    font-size: 1.5rem;
+    margin: auto;
+}
+
+.deliveriesHomePage{
+    padding: 0 5%;
+    background-color: white;
+    flex: 4;
+}
+
+/*
+    deliveryDisplay
+*/
+.deliveryDisplay{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.deliveriesToMePage{
+    flex: 1;
+    padding: 1%;
+}
+
+.myDeliveryRequestPage{
+    flex: 1;
+    padding: 1%;
+}
