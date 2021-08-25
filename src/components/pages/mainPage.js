@@ -2,15 +2,14 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import LoginPage from "./loginPage";
-import './mainPage.css';
+import '../mainPage.css';
 
-import Navbar from 'react-bootstrap/Navbar'
-import NavBar from "./navBar";
+import NavBar from "../utils/navBar";
 import {Layout} from "antd";
 import SignUpPage from "./signUpPage";
 import HomePage from "./homePage";
-import PrivateRoute from "./auth";
-const { Header, Content, Footer, Sider } = Layout;
+import PrivateRoute from "../utils/privateRouteProvider";
+const { Content } = Layout;
 
 // Main imports
 

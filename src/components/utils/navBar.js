@@ -1,8 +1,7 @@
 import React, {useContext} from 'react';
 import {Container, Nav, Navbar} from "react-bootstrap";
-import {UnAuthenticate} from "./auth";
 import {useHistory} from "react-router-dom";
-import {AppContext} from "../App";
+import {AppContext} from "../../App";
 
 
 const NavBar = ()=> {

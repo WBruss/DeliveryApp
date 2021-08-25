@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
-import {Button, Layout} from "antd";
-import DeliveryRequest from "./deliveryRequest";
-import DeliveriesDisplay from "./deliveriesDisplay";
+import React from 'react';
+import { Layout } from "antd";
+import DeliveryRequest from "../utils/deliveryDisplay/deliveryRequest";
+import DeliveriesDisplay from "../utils/deliveryDisplay/deliveriesDisplay";
 
 const HomePage = () => {
-
 
     return(
         <>

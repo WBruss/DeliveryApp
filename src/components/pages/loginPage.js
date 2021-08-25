@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
-import {Redirect, useHistory} from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 import { Form, Input, Button } from 'antd';
 
-import { Auth } from './auth';
-import {AppContext} from "../App";
+import { Auth } from '../../services/auth';
+import {AppContext} from "../../App";
 
 const LoginPage = () => {
 

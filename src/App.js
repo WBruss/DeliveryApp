@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import MainPage from "./components/mainPage";
+import MainPage from "./components/pages/mainPage";
 
 export const AppContext = React.createContext();
 

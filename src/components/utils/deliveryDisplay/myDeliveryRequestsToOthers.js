@@ -1,23 +1,18 @@
 import React from "react";
-import {Table, Tag, Space, Button} from 'antd';
+import { Table} from "antd";
 
-const DeliveriesToMe = () => {
+const MyDeliveryRequests = () => {
     return(
         <>
-           <div className='deliveriesToMePage'>
-               <h3>Deliveries To Me</h3>
-               <DeliveryItem/>
-           </div>
+            <div className='myDeliveryRequestPage'>
+                <h3>My Requests</h3>
+                <DeliveryItem/>
+            </div>
         </>
     )
 }
 
-
 const DeliveryItem = () => {
-
-    function handleReceive(record) {
-        console.log("ClickR: ", record)
-    }
 
     const columns = [
         {
@@ -34,21 +29,6 @@ const DeliveryItem = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status'
-        },
-        {
-            title: '',
-            key: 'receive',
-            render: (_, record) =>
-                <Button
-                    size='small'
-                    type=''
-                    onClick={() =>
-                        handleReceive(record)
-                    }
-                >
-                    Received
-                </Button>
-
         },
     ]
 
@@ -85,5 +65,4 @@ const DeliveryItem = () => {
     )
 }
 
-
-export default DeliveriesToMe;
+export default MyDeliveryRequests;

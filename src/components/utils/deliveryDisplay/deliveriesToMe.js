@@ -1,16 +1,17 @@
 import React from "react";
-import {Button, Table} from "antd";
+import {Table, Button} from 'antd';
 
-const MyDeliveryRequests = () => {
+const DeliveriesToMe = () => {
     return(
         <>
-            <div className='myDeliveryRequestPage'>
-                <h3>My Requests</h3>
-                <DeliveryItem/>
-            </div>
+           <div className='deliveriesToMePage'>
+               <h3>Deliveries To Me</h3>
+               <DeliveryItem/>
+           </div>
         </>
     )
 }
+
 
 const DeliveryItem = () => {
 
@@ -33,6 +34,21 @@ const DeliveryItem = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status'
+        },
+        {
+            title: '',
+            key: 'receive',
+            render: (_, record) =>
+                <Button
+                    size='small'
+                    type=''
+                    onClick={() =>
+                        handleReceive(record)
+                    }
+                >
+                    Received
+                </Button>
+
         },
     ]
 
@@ -69,4 +85,5 @@ const DeliveryItem = () => {
     )
 }
 
-export default MyDeliveryRequests;
+
+export default DeliveriesToMe;
