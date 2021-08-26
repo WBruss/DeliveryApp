@@ -1,54 +1,24 @@
 import { useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import {AppContext} from "../App";
+import axios from "axios";
 
-export const Auth = {
+const BASE_URL = `http://localhost:5000/auth`;
 
-    isAuthenticated: false,
 
-    authenticate: () => {
-        return true;
-    },
-
-    unAuthenticate: () => {
-        return false;
-    },
-
-    getAuthentication: () => {
-        return this.isAuthenticated;
-    }
+export const authenticate = async (values) => {
+    let response = await axios.post(`${BASE_URL}/loginapi/`, values)
+    console.log("Response: ", response)
+    return response.data;
 }
 
-export const Authenticate = () => {
+export const signUp = async (values) => {
 
-    // const [ appContext, setAppContext ] = useContext(AppContext);
+    let response = await axios.post(`${BASE_URL}/signup/`, values)
 
-    // const authenticated = () => {
-    //     setAppContext({
-    //         ...appContext,
-    //         user: {
-    //             name: 'Paul',
-    //             role: 'ADMIN',
-    //             authenticated: true
-    //         }
-    //     });
-    // }
+    console.log("Response: ", response)
 
+    return response.data;
 }
 
-export const UnAuthenticate = () => {
-
-    const history = useHistory();
-
-    const { appContext, setAppContext } = useContext(AppContext);
-
-    console.log("Logout")
-
-    setAppContext({
-        ...appContext,
-        user: {}
-    });
-
-    history.push('/login')
-}
 

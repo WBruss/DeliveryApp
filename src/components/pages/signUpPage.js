@@ -1,24 +1,58 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import axios from 'axios';
-
-import {Form, Input, Button, Select} from 'antd';
+import {Form, Input, Button, Select, message} from 'antd';
 import {Option} from "antd/es/mentions";
 import {useHistory} from "react-router-dom";
+import {signUp} from "../../services/auth";
 
 const SignUpPage = () => {
 
+    const [form] = Form.useForm();
+
     const history = useHistory();
 
-    const signUp = async (values) => {
-        let response = await axios.post("http://localhost:5000/auth/signup/", values)
-        console.log("Response: ", response)
-    }
+    const key = 'updatable';
+
+    const { popUp, setPopUp } = useState({
+        msg: "",
+        type: "",
+        visible: false
+    });
 
     const onFinish = (values) => {
+
+        message.loading({
+            content: "Signing Up",
+            key
+        })
+        form.resetFields();
         console.log('Success:', values);
-        signUp(values);
-        history.push('/')
+        signUp(values).then(r => {
+            if(r.status === 0){
+                message.success({
+                    content: r.message,
+                    key,
+                    duration: 2
+                });
+                history.push('/')
+            }else {
+                message.error({
+                    content: r.message,
+                    key,
+                    duration: 2
+                });
+            }
+        }).catch(error => {
+            console.log("Error", error.message)
+            message.error({
+                content: error.message,
+                key,
+                duration: 2
+            });
+        });
+
+
+
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -29,9 +63,11 @@ const SignUpPage = () => {
         <div
             className='loginPage'
         >
+            {/*<Alert message={popUp.msg} type={popUp.type} />*/}
             <div className='signupForm'>
                 <h2 className='formHeader'>Sign Up</h2>
                 <Form
+                    form={form}
                     name="basic"
                     labelCol={{
                         span: 20,

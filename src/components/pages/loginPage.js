@@ -1,35 +1,65 @@
 import React, {useContext} from 'react';
 import { useHistory} from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
-import { Form, Input, Button } from 'antd';
+import {Form, Input, Button, message} from 'antd';
 
-import { Auth } from '../../services/auth';
+import { authenticate } from '../../services/auth';
 import {AppContext} from "../../App";
 
 const LoginPage = () => {
 
     const { appContext, setAppContext } = useContext(AppContext);
 
+    const [ form ] = Form.useForm();
+
     const history = useHistory();
 
-    const authenticated = () => {
+    const key = 'updatable';
+
+    const authenticated = (token_decode) => {
         setAppContext({
             ...appContext,
             user: {
-                name: 'Paul',
-                role: 'ADMIN',
-                authenticated: true
+                name: token_decode.name,
+                email: token_decode.email,
+                role: token_decode.role,
             }
         })
     }
 
+
     const onFinish = (values) => {
         console.log('Success:', values);
-        if(Auth.authenticate()){
-            console.log("Authenticate")
-            authenticated()
-            history.push('/')
-        }
+        authenticate(values).then(r =>{
+            if(r.status === 0){
+                localStorage.setItem('token', r.token);
+                console.log("JWT: ", jwt_decode(r.token))
+                authenticated(jwt_decode(r.token))
+                message.success({
+                    content: r.message,
+                    key,
+                    duration: 2
+                });
+
+                history.push('/')
+            }else {
+                message.error({
+                    content: r.message,
+                    key,
+                    duration: 2
+                });
+            }
+        }).catch(error => {
+            console.log("Error", error.message)
+            message.error({
+                content: error.message,
+                key,
+                duration: 2
+            });
+        });
+
+        form.resetFields();
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -43,6 +73,7 @@ const LoginPage = () => {
             <div className='loginForm'>
                 <h2 className='formHeader'>Login</h2>
                 <Form
+                    form={form}
                     name="basic"
                     labelCol={{
                         span: 20,

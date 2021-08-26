@@ -12,13 +12,8 @@ const NavBar = ()=> {
 
     const handleLogout = () => {
         console.log("logout")
-
-        setAppContext({
-            ...appContext,
-            user: {}
-        });
-
-        history.push('/login')
+        localStorage.clear();
+        setAppContext({});
     }
 
     return(
@@ -29,9 +24,9 @@ const NavBar = ()=> {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            {appContext.user.authenticated ?
+                            {appContext.user.name ?
                                 (<>
-                                    <Nav.Link href="/home">Home</Nav.Link>
+                                    <Nav.Link href="/">Home</Nav.Link>
                                     <Nav.Link href="/logout" onClick={() => handleLogout()}>Logout</Nav.Link>
                                 </>)
                                 : <>

@@ -9,8 +9,8 @@ export const AppContext = React.createContext();
 function App() {
     const [ appContext, setAppContext ] = useState({
         user: {},
-        deliveriesToMe: {},
-        myRequest: {}
+        deliveriesToMe: [],
+        myRequest: []
     })
 
     return (

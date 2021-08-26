@@ -1,14 +1,40 @@
 import React, { useState } from 'react';
 
-import {Form, Input, Button, Modal, Select} from 'antd';
+import { createDelivery } from '../../../services/deliveryService';
+
+import {Form, Input, Button, Modal, Select, message} from 'antd';
 const {Option} = Select;
 
 const DeliveryRequest = () => {
+
+    const key = 'updatable';
 
     const [ visible, setVisible ] = useState(false);
     const onCreateDeliveryRequest = (values) => {
         console.log('Delivery Request: ', values);
         setVisible(false);
+        createDelivery(values).then(r => {
+        if(r.status === 0){
+            message.success({
+                content: r.message,
+                key,
+                duration: 2
+            });
+        }else {
+            message.error({
+                content: r.message,
+                key,
+                duration: 2
+            });
+        }
+    }).catch(error => {
+        console.log("Error", error.message)
+        message.error({
+            content: error.message,
+            key,
+            duration: 2
+        });
+    });
     }
 
     return(
