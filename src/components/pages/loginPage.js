@@ -5,11 +5,11 @@ import jwt_decode from "jwt-decode";
 import {Form, Input, Button, message} from 'antd';
 
 import { authenticate } from '../../services/auth';
-import {AppContext} from "../../App";
+import {AppContext, UserContext} from "../../App";
 
 const LoginPage = () => {
 
-    const { appContext, setAppContext } = useContext(AppContext);
+    const { setUserContext } = useContext(UserContext);
 
     const [ form ] = Form.useForm();
 
@@ -18,13 +18,10 @@ const LoginPage = () => {
     const key = 'updatable';
 
     const authenticated = (token_decode) => {
-        setAppContext({
-            ...appContext,
-            user: {
-                name: token_decode.name,
-                email: token_decode.email,
-                role: token_decode.role,
-            }
+        setUserContext({
+            name: token_decode.name,
+            email: token_decode.email,
+            role: token_decode.role,
         })
     }
 

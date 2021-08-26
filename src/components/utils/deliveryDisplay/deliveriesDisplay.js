@@ -1,12 +1,12 @@
 import React from "react";
-import DeliveriesToMe from "./deliveriesToMe";
+import DeliveriesToOffice from "./deliveriesToOffice";
 import MyDeliveryRequests from "./myDeliveryRequestsToOthers";
 
 const DeliveriesDisplay = () => {
     return(
         <>
             <div className='deliveryDisplay'>
-                <DeliveriesToMe/>
+                {/*<DeliveriesToOffice/>*/}
                 <MyDeliveryRequests/>
             </div>
         </>

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 
 import { createDelivery } from '../../../services/deliveryService';
 
 import {Form, Input, Button, Modal, Select, message} from 'antd';
+import {AppContext} from "../../../App";
 const {Option} = Select;
 
 const DeliveryRequest = () => {
+
+    const { appContext, setAppContext } = useContext(AppContext);
 
     const key = 'updatable';
 
@@ -15,6 +18,10 @@ const DeliveryRequest = () => {
         setVisible(false);
         createDelivery(values).then(r => {
         if(r.status === 0){
+            setAppContext({
+                ...appContext,
+                myRequest: [r.payload, ...appContext.myRequest]
+            })
             message.success({
                 content: r.message,
                 key,

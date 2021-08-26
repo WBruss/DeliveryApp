@@ -1,40 +1,25 @@
 import React, {useContext, useEffect} from "react";
-import {AppContext} from "../../App";
+import {AppContext, UserContext} from "../../App";
 import {Redirect, Route} from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import HomePage from "../pages/homePage";
 
-const PrivateRoute = ({ component: Component, ...rest}) => {
+export const PrivateRoute = ({ component: Component, path:path, ...rest}) => {
 
-    const { appContext, setAppContext } = useContext(AppContext);
-
-
-    // const getAuthenticated = () => {
-    //     let token = localStorage.getItem('token')
-    //     if(token){
-    //         let token_decode = jwt_decode(token);
-    //         if (token_decode.name){
-    //             // setAppContext({
-    //             //     ...appContext,
-    //             //     user: {
-    //             //         name: token_decode.name,
-    //             //         email: token_decode.email,
-    //             //         role: token_decode.role,
-    //             //     }
-    //             // })
-    //             return true;
-    //         }else {
-    //             return false;
-    //         }
-    //     }
-    //     return false;
-    // }
+    const { userContext, setUserContext } = useContext(UserContext);
+    console.log("PrivateRoute ",path)
 
     return(
         <Route
             {...rest}
-            component={(props) => (
-                appContext.user.name? (
-                    <Component {...props}/>
+            render={(props) => (
+                userContext.name? (
+                    <AuthorizationRoute
+                        {...props}
+                        path={path}
+                        component={Component}
+                    />
+                    // <Component {...props}/>
                 ):(
                     <Redirect to='/login'/>
                 )
@@ -43,4 +28,26 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
     )
 }
 
-export default PrivateRoute;
+
+export const AuthorizationRoute = ({ component: Component, path, ...rest}) => {
+
+    const { userContext, setUserContext } = useContext(UserContext);
+
+    console.log("ROLE ",userContext.role)
+    console.log("path ",path)
+    console.log("rest ",rest)
+
+    return(
+        <Route
+            {...rest}
+            render={(props) => (
+                userContext.role === "SECRETARY" ? (
+                    <Component {...props}/>
+                ):(
+                    <Redirect to='/'/>
+                )
+            )}
+        />
+    )
+}
+
