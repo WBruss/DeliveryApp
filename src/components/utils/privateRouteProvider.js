@@ -1,12 +1,10 @@
-import React, {useContext, useEffect} from "react";
-import {AppContext, UserContext} from "../../App";
+import React, {useContext} from "react";
+import {UserContext} from "../../App";
 import {Redirect, Route} from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import HomePage from "../pages/homePage";
 
-export const PrivateRoute = ({ component: Component, path:path, ...rest}) => {
+export const PrivateRoute = ({ component: Component, path, ...rest}) => {
 
-    const { userContext, setUserContext } = useContext(UserContext);
+    const { userContext } = useContext(UserContext);
     console.log("PrivateRoute ",path)
 
     return(
@@ -31,23 +29,36 @@ export const PrivateRoute = ({ component: Component, path:path, ...rest}) => {
 
 export const AuthorizationRoute = ({ component: Component, path, ...rest}) => {
 
-    const { userContext, setUserContext } = useContext(UserContext);
+    const { userContext } = useContext(UserContext);
 
     console.log("ROLE ",userContext.role)
     console.log("path ",path)
     console.log("rest ",rest)
 
-    return(
-        <Route
-            {...rest}
-            render={(props) => (
-                userContext.role === "SECRETARY" ? (
+    if(path === "officedeliveries"){
+        return(
+            <Route
+                {...rest}
+                render={(props) => (
+                    userContext.role === "SECRETARY" ? (
+                        <Component {...props}/>
+                    ):(
+                        <Redirect to='/'/>
+                    )
+                )}
+            />
+        )
+    }else {
+        return(
+            <Route
+                {...rest}
+                render={(props) => (
                     <Component {...props}/>
-                ):(
-                    <Redirect to='/'/>
-                )
-            )}
-        />
-    )
+                )}
+            />
+        )
+    }
+
+
 }
 

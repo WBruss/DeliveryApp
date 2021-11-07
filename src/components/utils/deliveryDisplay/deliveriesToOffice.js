@@ -1,8 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import {Table, Button, message} from 'antd';
 import {AppContext} from "../../../App";
-import axios from "axios";
-import {receiveDelivery} from "../../../services/deliveryService";
+import {getDeliveryToOffice, receiveDelivery} from "../../../services/deliveryService";
 
 const DeliveriesToOffice = () => {
 
@@ -11,37 +10,32 @@ const DeliveriesToOffice = () => {
     const key = 'updatable';
 
     const get_Deliveries = async () => {
-        // let deliveries = await getDeliveries();
-        let response = await axios.get(`http://localhost:5000/deliveriestooffice/`, {
-            headers: {
-                Authorization: localStorage.getItem('token')
+        getDeliveryToOffice().then(r => {
+                if(r.status === 0){
+                    console.log("Data ", r.payload)
+                    setAppContext({
+                        ...appContext,
+                        deliveriesToOffice: r.payload,
+                    })
+                    message.success({
+                        content: r.message,
+                        key,
+                        duration: 2
+                    });
+                }else {
+                    message.error({
+                        content: r.message,
+                        key,
+                        duration: 2
+                    });
+                }
             }
-        });
 
-        let deliveries = response.data;
+        )
 
-        console.log("Data ", deliveries.payload)
 
-        if(deliveries.status === 0){
-            setAppContext({
-                ...appContext,
-                deliveriesToOffice: deliveries.payload,
-            })
-            message.success({
-                content: deliveries.message,
-                key,
-                duration: 2
-            });
-        }else {
-            message.error({
-                content: deliveries.message,
-                key,
-                duration: 2
-            });
-        }
     }
 
-    let num = 1;
 
     useEffect(() => {
         get_Deliveries()
@@ -140,32 +134,6 @@ const DeliveryItem = () => {
         },
     ]
 
-    const dummyData = [
-        {
-            id: 1,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-        {
-            id: 2,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-        {
-            id: 3,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-        {
-            id:4,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-    ]
     return(
         <>
             <Table columns={columns} dataSource={appContext.deliveriesToOffice} rowKey='id' pagination='false'/>

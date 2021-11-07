@@ -1,16 +1,11 @@
 import React, {useContext} from 'react';
 import {Container, Nav, Navbar} from "react-bootstrap";
-import {useHistory} from "react-router-dom";
-import {AppContext, UserContext} from "../../App";
-
+import {UserContext} from "../../App";
 
 const NavBar = ()=> {
-
-    const history = useHistory();
-
     const { userContext, setUserContext } = useContext(UserContext);
 
-    const handleLogout = () => {
+    const HandleLogout = () => {
         console.log("logout")
         localStorage.clear();
         setUserContext({});
@@ -31,9 +26,17 @@ const NavBar = ()=> {
                                     {userContext.role === "SECRETARY" ?
                                         <Nav.Link href="/officedeliveries">Office Deliveries</Nav.Link>
                                         :
-                                        <></>
+                                        (
+                                            <>
+                                                {userContext.role === 'ADMIN' ?
+                                                    <Nav.Link href="/admin">Admin</Nav.Link>
+                                                    :
+                                                    <></>
+                                                }
+                                            </>
+                                        )
                                     }
-                                    <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+                                    <Nav.Link onClick={() => HandleLogout()}>Logout</Nav.Link>
                                 </>)
                                 : <>
                                     <Nav.Link href="/login">Login</Nav.Link>

@@ -1,58 +1,26 @@
-import axios from 'axios';
-
-const BASE_URL = `http://localhost:5000`;
+import { get, post } from './api';
 
 export const getDeliveries = async () => {
-
-    let response = await axios.get(`http://localhost:5000/mydeliveryrequests/`, {
-        headers: {
-            Authorization: localStorage.getItem('token')
-        }
-    });
-
-    console.log("Get ", response)
-
+    console.log("mydeliveryrequests ")
+    let response = await get(`mydeliveryrequests/`)
     return response.data;
 }
 
 export const createDelivery = async (values) => {
-
-    let response = await axios.post(`http://localhost:5000/deliveries/`, values,{
-        headers: {
-            Authorization: localStorage.getItem('token')
-        }
-    });
-
+    let response = await post(`deliveries/`, values);
     console.log("Post ", response.data)
-
     return response.data;
-
 }
 
 export const getDeliveryToOffice = async () => {
-
-    let response = await axios.get(`http://localhost:5000/deliveriestooffice/`,{
-        headers: {
-            Authorization: localStorage.getItem('token')
-        }
-    });
-
+    let response = await get(`deliveriestooffice/`);
     console.log("deliveriestooffice ", response.data)
-
     return response.data;
-
 }
 
 export const receiveDelivery = async (delivery_id) => {
-
-    let response = await axios.get(`http://localhost:5000/api_receive_item?delivery_id=${delivery_id}`,{
-        headers: {
-            Authorization: localStorage.getItem('token')
-        }
-    });
-
+    let response = await get(`api_receive_item?delivery_id=${delivery_id}`);
     console.log("deliveriestooffice ", response.data)
-
     return response.data;
-
 }
+

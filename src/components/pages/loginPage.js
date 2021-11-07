@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import {Form, Input, Button, message} from 'antd';
 
 import { authenticate } from '../../services/auth';
-import {AppContext, UserContext} from "../../App";
+import {UserContext} from "../../App";
 
 const LoginPage = () => {
 

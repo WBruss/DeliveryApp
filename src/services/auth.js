@@ -1,9 +1,7 @@
-import { useContext } from "react";
-import { useHistory } from 'react-router-dom';
-import {AppContext} from "../App";
 import axios from "axios";
 
 const BASE_URL = `http://localhost:5000/auth`;
+// const BASE_URL = `https://delivery-backend-app.herokuapp.com/auth`;
 
 
 export const authenticate = async (values) => {

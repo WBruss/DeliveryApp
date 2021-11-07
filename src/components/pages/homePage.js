@@ -1,11 +1,10 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {Layout, message} from "antd";
 import DeliveryRequest from "../utils/deliveryDisplay/deliveryRequest";
 import DeliveriesDisplay from "../utils/deliveryDisplay/deliveriesDisplay";
 
 import { AppContext } from "../../App";
 import { getDeliveries } from '../../services/deliveryService';
-import axios from "axios";
 
 const HomePage = () => {
 
@@ -15,38 +14,37 @@ const HomePage = () => {
 
     const get_Deliveries = async () => {
         // let deliveries = await getDeliveries();
-        let response = await axios.get(`http://localhost:5000/mydeliveryrequests/`, {
-            headers: {
-                Authorization: localStorage.getItem('token')
+        // let response = await axios.get(`http://localhost:5000/mydeliveryrequests/`, {
+        //     headers: {
+        //         Authorization: localStorage.getItem('token')
+        //     }
+        // });
+        getDeliveries().then(r => {
+            if(r.status === 0){
+                console.log("Data ", r.payload)
+                setAppContext({
+                    ...appContext,
+                    myRequest: r.payload,
+                })
+                message.success({
+                    content: r.message,
+                    key,
+                    duration: 2
+                });
+            }else {
+                message.error({
+                    content: r.message,
+                    key,
+                    duration: 2
+                });
             }
-        });
-
-        let deliveries = response.data;
-
-        console.log("Data ", deliveries.payload)
-
-        if(deliveries.status === 0){
-            setAppContext({
-                ...appContext,
-                myRequest: deliveries.payload,
-            })
-            message.success({
-                content: deliveries.message,
-                key,
-                duration: 2
-            });
-        }else {
-            message.error({
-                content: deliveries.message,
-                key,
-                duration: 2
-            });
-        }
+        }).catch(error => {
+            console.log("Home Error ", error)
+        })
     }
 
-    let num = 1;
-
     useEffect(() => {
+        console.log("Get Deliveries")
         get_Deliveries()
     }, [])
 

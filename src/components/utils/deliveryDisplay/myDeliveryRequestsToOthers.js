@@ -15,7 +15,7 @@ const MyDeliveryRequests = () => {
 
 const DeliveryItem = () => {
 
-    const { appContext, setAppContext } = useContext(AppContext);
+    const { appContext } = useContext(AppContext);
 
     const columns = [
         {
@@ -40,32 +40,6 @@ const DeliveryItem = () => {
         },
     ]
 
-    const dummyData = [
-        {
-            id: 1,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-        {
-            id: 2,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-        {
-            id: 3,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-        {
-            id:4,
-            item: 'Paper',
-            sender: 'Evans',
-            status: 'Pending'
-        },
-    ]
     return(
         <>
             <Table columns={columns} dataSource={appContext.myRequest} rowKey='id' pagination='false'/>

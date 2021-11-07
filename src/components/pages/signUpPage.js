@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import {Form, Input, Button, Select, message} from 'antd';
 import {Option} from "antd/es/mentions";
@@ -12,12 +12,6 @@ const SignUpPage = () => {
     const history = useHistory();
 
     const key = 'updatable';
-
-    const { popUp, setPopUp } = useState({
-        msg: "",
-        type: "",
-        visible: false
-    });
 
     const onFinish = (values) => {
 

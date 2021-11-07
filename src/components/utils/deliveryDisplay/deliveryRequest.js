@@ -35,7 +35,7 @@ const DeliveryRequest = () => {
             });
         }
     }).catch(error => {
-        console.log("Error", error.message)
+        console.log("Error ", error.message)
         message.error({
             content: error.message,
             key,

@@ -8,8 +8,9 @@ import NavBar from "../utils/navBar";
 import {Layout} from "antd";
 import SignUpPage from "./signUpPage";
 import HomePage from "./homePage";
-import { PrivateRoute, AuthorizationRoute } from "../utils/privateRouteProvider";
+import { PrivateRoute } from "../utils/privateRouteProvider";
 import DeliveryToOfficePage from "./deliveryToOfficePage";
+import AdminPage from "./adminPage";
 const { Content } = Layout;
 
 // Main imports
@@ -44,6 +45,11 @@ const MainPage = () => {
                                     path='/officedeliveries'
                                     exact
                                     component={DeliveryToOfficePage}
+                                />
+                                <PrivateRoute
+                                    path='/admin'
+                                    exact
+                                    component={AdminPage}
                                 />
 
                             </Switch>
